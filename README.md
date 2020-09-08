@@ -4,13 +4,28 @@ Extends [Dokka](https://github.com/Kotlin/dokka) with a Hugo Plugin.
 
 ## Build
 
-* ``./gradlew plugins:hugo:build``
-* builds a jar with plugin-base and gfm included
-* include jar with:
+``./gradlew build``
+
+## Try Local Build
+
+``./gradlew publishToMavenLocal``
+
+
+## Dependency
+
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
 ```
 tasks.register("dokkaHugo", DokkaTask) {
     dependencies {
-        dokkaHugoPlugin files("libs/dokka-hugo-plugin.jar")
+        dokkaHugoPlugin 'com.github.cotechde:dokka-hugo-plugin:master-SNAPSHOT'
     }
 }
 ```
