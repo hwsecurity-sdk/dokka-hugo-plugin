@@ -17,6 +17,7 @@ import org.jetbrains.dokka.plugability.plugin
 import org.jetbrains.dokka.plugability.query
 import org.jetbrains.dokka.transformers.pages.PageTransformer
 import java.lang.StringBuilder
+import org.jetbrains.dokka.plugability.configuration
 
 
 class HugoPlugin : DokkaPlugin() {
@@ -68,17 +69,33 @@ class HugoRenderer(
     }
 
     private fun buildFrontMatter(page: ContentPage, builder: StringBuilder) {
-        builder.append("title = \"${page.name}\"\n")
+        val hugoConfiguration = getConfig()
+        val title = page.name.getTitle(hugoConfiguration)
+        builder.append("title = \"${title}\"\n")
         builder.append("draft = false\n")
         builder.append("toc = false\n")
         builder.append("type = \"reference\"\n")
 
         // Add menu item for each package
         if (page is PackagePage) {
-            builder.append("linktitle = \"${page.name}\"\n")
+            val linkTitle = page.name.getLinkTitle(hugoConfiguration)
+            builder.append("linktitle = \"${linkTitle}\"\n")
             builder.append("[menu.docs]\n")
             builder.append("  parent = \"hw-security-reference\"\n")
             builder.append("  weight = 1\n")
+        }
+    }
+
+    private fun getConfig() : HugoConfiguration{
+        var hugoConfiguration = HugoConfiguration()
+        try {
+            val config = configuration<HugoPlugin, HugoConfiguration>(context)
+            config?.let {
+                hugoConfiguration = config
+            }
+            return hugoConfiguration
+        } catch (exception: Exception) {
+            return hugoConfiguration
         }
     }
 
