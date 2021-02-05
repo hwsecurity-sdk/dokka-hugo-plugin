@@ -39,7 +39,7 @@ It is necessary to create a task to run the dokka with the hugo-plugin after inc
 ```
 tasks.register("dokkaHugo", org.jetbrains.dokka.gradle.DokkaTask) {
     dependencies {
-        dokkaHugoPlugin 'com.github.cotechde:dokka-hugo-plugin:$version'
+        dokkaHugoPlugin 'com.github.cotechde:dokka-hugo-plugin:2.0'
     }
 }
 ```
@@ -51,7 +51,7 @@ build.gradle file needs to be a build.gradle.kts, then, you can do like below:
 ```
 tasks.register<org.jetbrains.dokka.gradle.DokkaTask>("dokkaHugo") {
     dependencies {
-        plugins("de.cotech:dokka-hugo-plugin:$version")
+        plugins("de.cotech:dokka-hugo-plugin:2.0")
     }
     pluginConfiguration<org.jetbrains.dokka.hugo.HugoPlugin, org.jetbrains.dokka.hugo.HugoConfiguration> {
         titleReplace = hashMapOf("com.test.sample." to "", "com.test." to "", "." to " ")
