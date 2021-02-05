@@ -24,10 +24,9 @@ tasks.withType(KotlinCompile::class).all {
 dependencies {
     implementation(kotlin("stdlib"))
     testImplementation(kotlin("test-junit"))
-    
-    compileOnly("org.jetbrains.dokka:dokka-core:1.4.0")
-    implementation("org.jetbrains.dokka:dokka-base:1.4.0")
-    implementation("org.jetbrains.dokka:gfm-plugin:1.4.0")
+    compileOnly("org.jetbrains.dokka:dokka-core:1.4.20")
+    implementation("org.jetbrains.dokka:dokka-base:1.4.20")
+    implementation("org.jetbrains.dokka:gfm-plugin:1.4.20")
 }
 
 
@@ -36,7 +35,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "de.cotech"
             artifactId = "dokka-hugo-plugin"
-            version = "1.0"
+            version = "2.0"
 
             from(components["kotlin"])
         }
